@@ -1,0 +1,29 @@
+parameters: betta, sigma, eta, rhoA, rhoR, theta, phi
+
+vars: Y, inflation, rate, A
+
+shocks: e_R, e_A
+
+parametervalues:
+betta = 0.99
+sigma = 1.0
+eta = 0.0
+rhoA = 0.9
+rhoR = 0.0
+theta = 0.8
+phi = 1.5
+end
+
+equations:
+-sigma*(Y-Y(+1)) = rate - inflation(+1)
+rate = phi * inflation + e_R
+inflation = (1-theta)*(1-betta*theta)/theta * ((eta+sigma)*Y - (eta+1)*A) + betta*inflation(+1)
+A = rhoA*A(-1) + e_A
+end
+
+ssguess:
+Y = 0
+inflation = 0
+rate = 0
+A = 0
+end
